@@ -1,0 +1,4 @@
+# Ignorar el log local de instalación de herramientas
+install-dev-tools.log
+
+

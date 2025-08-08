@@ -103,6 +103,7 @@ brew install --cask \
   intellij-idea \
   dbeaver-community \
   notion \
+  alt-tab \
   zoom \
   elgato-stream-deck \
   monitorcontrol

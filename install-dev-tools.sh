@@ -143,7 +143,7 @@ done
 
 # Crear estructura de carpetas
 log_info "=== Creando estructura de carpetas ==="
-if mkdir -p ~/00-MyStuff ~/01-Work; then
+if mkdir -p ~/00-MyStuff ~/Work; then
   log_success "Estructura de carpetas creada"
 else
   log_error "Falló la creación de estructura de carpetas"
@@ -155,8 +155,8 @@ if ! grep -q "# Alias personalizados" ~/.zshrc 2>/dev/null; then
   {
     echo "";
     echo "# Alias personalizados";
-    echo "alias rep=\"cd ~/Work/_CORBAT/01-Repositories\"";
-    echo "alias adv=\"cd ~/Work/_ADEVINTA/01-Repositories\"";
+    echo "alias rep="cd ~/Work/_CORBAT/01-Repositories"
+    echo "alias adv="cd ~/Work/_ADEVINTA/01-Repositories"
   } >> ~/.zshrc
   log_success "Aliases añadidos a .zshrc"
 else
@@ -165,10 +165,11 @@ fi
 
 # SDKMAN!: instalación y SDKs clave para Java/Kotlin/Spring Boot
 log_info "=== Configurando SDKMAN! ==="
-if ! command -v sdk >/dev/null 2>&1 && [ ! -d "$HOME/.sdkman" ]; then
+export SDKMAN_DIR="$HOME/.sdkman"
+export SDKMAN_NON_INTERACTIVE=true
+
+if ! command -v sdk >/dev/null 2>&1 && [ ! -d "$SDKMAN_DIR" ]; then
   log_info "Instalando SDKMAN!..."
-  export SDKMAN_DIR="$HOME/.sdkman"
-  export SDKMAN_NON_INTERACTIVE=true
   if curl -s "https://get.sdkman.io" | bash; then
     log_success "SDKMAN! instalado correctamente"
   else
@@ -178,6 +179,13 @@ else
   log_info "SDKMAN! ya está instalado"
 fi
 
+# Cargar entorno SDKMAN!
+if [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
+  source "$SDKMAN_DIR/bin/sdkman-init.sh"
+else
+  log_error "No se encontró sdkman-init.sh"
+fi
+
 # Función para instalar candidato SDK individual
 install_sdk() {
   local candidate="$1"
@@ -185,11 +193,10 @@ install_sdk() {
   
   if [ -n "$version" ]; then
     local full_name="$candidate $version"
-    if sdk list "$candidate" 2>/dev/null | grep -q "$version.*installed" 2>/dev/null; then
+    if sdk list "$candidate" 2>/dev/null | grep -q "$version.*installed"; then
       log_info "SDK '$full_name' ya está instalado"
       return 0
     fi
-    
     if echo "yes" | sdk install "$candidate" "$version" &>/dev/null; then
       log_success "SDK '$full_name' instalado correctamente"
       return 0
@@ -198,11 +205,10 @@ install_sdk() {
       return 1
     fi
   else
-    if sdk list "$candidate" 2>/dev/null | grep -q "installed" 2>/dev/null; then
+    if sdk list "$candidate" 2>/dev/null | grep -q "installed"; then
       log_info "SDK '$candidate' ya está instalado"
       return 0
     fi
-    
     if echo "yes" | sdk install "$candidate" &>/dev/null; then
       log_success "SDK '$candidate' instalado correctamente"
       return 0
