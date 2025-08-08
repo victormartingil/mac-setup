@@ -20,8 +20,8 @@ This repository provides a single automated script to set up a macOS development
     dbeaver-community, notion, zoom, monitorcontrol, slack
 - Installs CLI tools:
   - git, kubectl, awscli, openjdk@21, openjdk@17, node, python, wget, unzip, jq, yq, httpie,
-    ripgrep, fd, fzf, tree, tmux, direnv, pre-commit, gh, helm, k9s, kubectx, kubens, kind,
-    terraform, terragrunt, aws-vault, postgresql, redis, ktlint, detekt, protobuf, grpcurl,
+    ripgrep, fd, fzf, tree, tmux, direnv, pre-commit, gh, helm, k9s, minikube, kubectx, kubens,
+    kind, terraform, terragrunt, aws-vault, postgresql, redis, ktlint, detekt, protobuf, grpcurl,
     buf, k6, hey, mkcert, sops, age, dive, pgcli, graphviz
 - Sets up SDKMAN! (if missing) and installs SDK candidates:
   - java 21-tem, java 17-tem, maven, gradle, kotlin, springboot, jbang, micronaut, quarkus

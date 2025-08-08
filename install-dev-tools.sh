@@ -114,6 +114,7 @@ cli_tools=(
   "gh"
   "helm"
   "k9s"
+  "minikube"
   "kubectx"
   "kubens"
   "kind"
