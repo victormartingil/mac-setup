@@ -1,28 +1,28 @@
-# 🛠️ Script de configuración y estructura de disco para desarrollo en Mac
+# 🛠️ macOS development setup script and disk structure
 
-Este repositorio contiene una guía de configuración inicial recomendada para entornos de desarrollo en Mac, incluyendo:
+This repository contains a recommended initial setup guide for development environments on macOS, including:
 
-* Instalación de herramientas clave
-* Organización del sistema de archivos
-* Sincronización con NAS Synology
-* Recomendaciones de backup y seguridad
+* Installation of key tools
+* File system organization
+* Synology NAS synchronization
+* Backup and security recommendations
 
 ---
 
-## 📁 Estructura de carpetas recomendada
+## 📁 Recommended folder structure
 
 ```bash
-~/Personal            # Datos personales: fotos, documentos, salud, etc.
-~/Work                # Proyectos profesionales (clientes, Corbat, facturación...)
-~/Repos               # Código fuente (subdividido por personales y profesionales)
-~/Sync/SynoDocs       # Carpeta sincronizada con NAS para documentos de trabajo
-~/Sync/SynoPro        # Otra carpeta sincronizada con NAS (proyectos grandes, backups)
-~/Downloads           # Descargas temporales
-~/Desktop             # Solo archivos temporales o de uso inmediato
-~/tmp                 # Experimentos, pruebas, datos no persistentes
+~/Personal            # Personal data: photos, documents, health, etc.
+~/Work                # Professional projects (clients, Corbat, invoicing...)
+~/Repos               # Source code (split into personal and professional)
+~/Sync/SynoDocs       # Synced with NAS for working documents
+~/Sync/SynoPro        # Another NAS-synced folder (large projects, backups)
+~/Downloads           # Temporary downloads
+~/Desktop             # Only temporary files or immediate use
+~/tmp                 # Experiments, tests, non-persistent data
 ```
 
-Puedes crear esta estructura ejecutando:
+You can create this structure by running:
 
 ```bash
 mkdir -p ~/Personal \
@@ -34,45 +34,45 @@ mkdir -p ~/Personal \
 
 ---
 
-## 🔄 Sincronización con NAS Synology
+## 🔄 Synology NAS synchronization
 
-Requiere **Synology Drive Client**:
+Requires **Synology Drive Client**:
 
 * 📅 [Descargar Synology Drive Client](https://www.synology.com/en-global/dsm/feature/drive)
 
-### Configuración bidireccional:
+### Two-way sync configuration:
 
 | Mac               | NAS                 |
 | ----------------- | ------------------- |
 | `~/Sync/SynoDocs` | `/volume1/SynoDocs` |
 | `~/Sync/SynoPro`  | `/volume1/SynoPro`  |
 
-> ✅ **Activa la versión de archivos en Synology** para recuperación ante errores.
-> ⚠️ **No sincronices código fuente con Synology. Usa Git para eso.**
+> ✅ **Enable file versioning in Synology** for recovery from mistakes.
+> ⚠️ **Do not sync source code with Synology. Use Git for that.**
 
 ---
 
-## 🔐 Backups y seguridad
+## 🔐 Backups and security
 
 1. **Time Machine**
 
-   * Recomendado con disco externo o NAS como destino.
+   * Recommended with an external drive or a NAS as destination.
 
-2. **Backups semanales del NAS**
+2. **Weekly NAS backups**
 
-   * A disco externo USB usando **Hyper Backup**.
+   * To an external USB drive using **Hyper Backup**.
 
-3. **Repositorios Git**
+3. **Git repositories**
 
-   * Almacena en GitHub, GitLab o Bitbucket (modo privado).
+   * Store on GitHub, GitLab, or Bitbucket (private mode).
 
 ---
 
-## ⚙️ Configuraciones recomendadas
+## ⚙️ Recommended configurations
 
-* Usar un `.gitignore_global` para excluir archivos del sistema.
-* Utilizar **etiquetas** en Finder para marcar carpetas activas.
-* Añadir alias útiles en `~/.zshrc`:
+* Use a `.gitignore_global` to exclude system files.
+* Use **tags** in Finder to mark active folders.
+* Add useful aliases in `~/.zshrc`:
 
 ```bash
 alias repos="cd ~/Repos"
@@ -82,18 +82,18 @@ alias syncdocs="cd ~/Sync/SynoDocs"
 
 ---
 
-## 📦 Instalar software principal con Homebrew
+## 📦 Install main software with Homebrew
 
-### Paso 1: Instalar Homebrew
+### Step 1: Install Homebrew
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### Paso 2: Instalar software
+### Step 2: Install software
 
 ```bash
-# Aplicaciones GUI (brew cask)
+# GUI applications (brew cask)
 brew install --cask \
   docker \
   google-chrome \
@@ -108,7 +108,7 @@ brew install --cask \
   elgato-stream-deck \
   monitorcontrol
 
-# Herramientas CLI
+# CLI tools
 brew install \
   git \
   kubectl \
@@ -124,7 +124,7 @@ brew install \
   unzip
 ```
 
-### Paso 3: Establecer JDK por defecto
+### Step 3: Set default JDK
 
 ```bash
 sudo ln -sfn /opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk \
@@ -133,123 +133,123 @@ sudo ln -sfn /opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk \
 
 ---
 
-### 📦 Resumen de paquetes instalados
+### 📦 Summary of installed packages
 
-#### Aplicaciones GUI (Casks)
-- **docker**: Plataforma de contenedores con interfaz gráfica.
-- **google-chrome**: Navegador web de Google.
-- **iterm2**: Terminal avanzada con pestañas y personalización.
-- **postman**: Cliente GUI para probar APIs REST/GraphQL.
-- **visual-studio-code**: Editor de código ligero con extensiones.
-- **intellij-idea**: IDE profesional para Java/Kotlin/Spring.
-- **cursor**: IDE con IA integrada (fork de VSCode).
-- **dbeaver-community**: Cliente universal de bases de datos.
-- **notion**: Notas, wikis y gestión de proyectos.
-- **zoom**: Videoconferencias.
-- **monitorcontrol**: Controla brillo/volumen de monitores externos.
-- **slack**: Comunicación empresarial.
+#### GUI Applications (Casks)
+- **docker**: Container platform with GUI.
+- **google-chrome**: Web browser by Google.
+- **iterm2**: Advanced terminal with tabs and customization.
+- **postman**: GUI client to test REST/GraphQL APIs.
+- **visual-studio-code**: Lightweight code editor with extensions.
+- **intellij-idea**: Professional IDE for Java/Kotlin/Spring.
+- **cursor**: AI-powered IDE (VSCode fork).
+- **dbeaver-community**: Universal database client.
+- **notion**: Notes, wikis, and project management.
+- **zoom**: Video conferencing.
+- **monitorcontrol**: Control brightness/volume of external monitors.
+- **slack**: Team communication.
 
-#### Herramientas CLI
-- **git**: Control de versiones distribuido.
-- **kubectl**: CLI para gestionar Kubernetes.
-- **awscli**: CLI oficial de AWS.
-- **openjdk@21 / openjdk@17**: JDKs de Java 21 y 17.
-- **node**: Runtime de JavaScript para backend.
-- **python**: Lenguaje de programación y runtime.
-- **wget**: Descarga de archivos por HTTP/FTP.
-- **unzip**: Extractor de archivos ZIP.
-- **jq**: Procesador de JSON en terminal.
-- **yq**: Procesador de YAML en terminal.
-- **httpie**: Cliente HTTP moderno (alternativa a curl).
-- **ripgrep**: Búsqueda de texto rápida.
-- **fd**: Búsqueda de archivos moderna.
-- **fzf**: Búsqueda difusa interactiva.
-- **tree**: Vista de directorios en árbol.
-- **tmux**: Multiplexor de terminal.
-- **direnv**: Variables de entorno por directorio.
-- **pre-commit**: Framework de hooks para Git.
-- **gh**: CLI de GitHub.
-- **helm**: Gestor de paquetes para Kubernetes.
-- **k9s**: Dashboard de Kubernetes en terminal.
-- **kubectx**: Cambio rápido de contextos de K8s.
-- **kubens**: Cambio rápido de namespaces de K8s.
-- **kind**: Kubernetes local con Docker.
-- **terraform**: Infraestructura como código.
-- **terragrunt**: Wrapper DRY para Terraform.
-- **aws-vault**: Gestor seguro de credenciales AWS.
-- **postgresql**: Base de datos relacional.
-- **redis**: Almacén en memoria para cache/colas.
-- **ktlint**: Linter de estilo para Kotlin.
-- **detekt**: Análisis estático para Kotlin.
-- **protobuf**: Compilador de Protocol Buffers.
-- **grpcurl**: Cliente gRPC de línea de comandos.
-- **buf**: Toolkit moderno para Protocol Buffers.
-- **k6**: Testing de performance para APIs.
-- **hey**: Generador de carga HTTP.
-- **mkcert**: Certificados SSL locales de confianza.
-- **sops**: Gestión de secretos cifrados en archivos.
-- **age**: Cifrado moderno de archivos.
-- **dive**: Analiza capas de imágenes Docker.
-- **pgcli**: Cliente PostgreSQL con autocompletado.
-- **graphviz**: Renderizado de gráficos/diagramas.
+#### CLI Tools
+- **git**: Distributed version control.
+- **kubectl**: CLI to manage Kubernetes.
+- **awscli**: Official AWS CLI.
+- **openjdk@21 / openjdk@17**: Java JDKs 21 and 17.
+- **node**: JavaScript runtime for backend.
+- **python**: Programming language and runtime.
+- **wget**: HTTP/FTP file downloader.
+- **unzip**: ZIP archive extractor.
+- **jq**: JSON processor for terminal.
+- **yq**: YAML processor for terminal.
+- **httpie**: Modern HTTP client (curl alternative).
+- **ripgrep**: Fast text search.
+- **fd**: Modern file search.
+- **fzf**: Interactive fuzzy finder.
+- **tree**: Directory tree view.
+- **tmux**: Terminal multiplexer.
+- **direnv**: Per-directory environment variables.
+- **pre-commit**: Git hooks framework.
+- **gh**: GitHub CLI.
+- **helm**: Package manager for Kubernetes.
+- **k9s**: Terminal dashboard for Kubernetes.
+- **kubectx**: Fast K8s context switching.
+- **kubens**: Fast K8s namespace switching.
+- **kind**: Local Kubernetes with Docker.
+- **terraform**: Infrastructure as code.
+- **terragrunt**: DRY wrapper for Terraform.
+- **aws-vault**: Secure AWS credentials manager.
+- **postgresql**: Relational database.
+- **redis**: In-memory store for cache/queues.
+- **ktlint**: Kotlin style linter.
+- **detekt**: Static analysis for Kotlin.
+- **protobuf**: Protocol Buffers compiler.
+- **grpcurl**: gRPC command-line client.
+- **buf**: Modern toolkit for Protocol Buffers.
+- **k6**: API performance testing.
+- **hey**: HTTP load generator.
+- **mkcert**: Local trusted SSL certificates.
+- **sops**: Encrypted secrets management in files.
+- **age**: Modern file encryption.
+- **dive**: Analyze Docker image layers.
+- **pgcli**: PostgreSQL client with autocompletion.
+- **graphviz**: Graph/diagram rendering.
 
-#### SDKs vía SDKMAN!
-- **java 21-tem / 17-tem**: JDKs Temurin (Eclipse) versiones 21 y 17.
-- **maven**: Gestor de dependencias y build para Java.
-- **gradle**: Build tool moderno para JVM.
-- **kotlin**: Lenguaje interoperable con Java.
-- **springboot**: CLI para scaffolding/prototipos Spring Boot.
-- **jbang**: Ejecuta scripts Java sin proyecto.
-- **micronaut**: Framework ligero para microservicios.
-- **quarkus**: Framework Java optimizado para cloud/containers.
+#### SDKs via SDKMAN!
+- **java 21-tem / 17-tem**: Temurin (Eclipse) JDKs versions 21 and 17.
+- **maven**: Dependency manager and build tool for Java.
+- **gradle**: Modern build tool for the JVM.
+- **kotlin**: Language interoperable with Java.
+- **springboot**: CLI for Spring Boot scaffolding/prototypes.
+- **jbang**: Run Java scripts without a project.
+- **micronaut**: Lightweight framework for microservices.
+- **quarkus**: Java framework optimized for cloud/containers.
 
 ---
 
-## 🧠 Otros conceptos útiles
+## 🧠 Other useful concepts
 
-### A) Dotfiles y symlinks
+### A) Dotfiles and symlinks
 
-Puedes mantener tus archivos de configuración (como `.zshrc`, `.gitconfig`, etc.) versionados en Git:
+You can keep your configuration files (like `.zshrc`, `.gitconfig`, etc.) versioned in Git:
 
 ```bash
 ln -s ~/dotfiles/.zshrc ~/.zshrc
 ```
 
-### B) Añadir claves SSH
+### B) Add SSH keys
 
 ```bash
 ssh-keygen -t ed25519 -C "tu@email.com"
 eval "$(ssh-agent -s)"
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519
-pbcopy < ~/.ssh/id_ed25519.pub  # Copia para añadir a GitHub
+pbcopy < ~/.ssh/id_ed25519.pub  # Copy to add to GitHub
 ```
 
 ---
 
-## 💡 Software adicional recomendado
+## 💡 Additional recommended software
 
-| Categoría      | Aplicaciones               | Notas                                 |
+| Category       | Applications               | Notes                                 |
 | -------------- | -------------------------- | ------------------------------------- |
-| Comunicación   | Slack, Discord, Zoom       |                                       |
-| Productividad  | Notion, Raycast, Rectangle |                                       |
-| Desarrollo     | Cursor (AI IDE), Warp      | Alternativa a VSCode/Terminal         |
-| Monitorización | Stats, iStat Menus         | Temperatura, memoria, uso del sistema |
-| Automatización | Raycast, Alfred            | Flujos de trabajo y automatización    |
-| Audio          | VB-Audio, OBS, Krisp       | Filtros y control de audio            |
-| Macros/Atajos  | Elgato Stream Deck + app   | Lanzadores, automatizaciones          |
+| Communication  | Slack, Discord, Zoom       |                                       |
+| Productivity   | Notion, Raycast, Rectangle |                                       |
+| Development    | Cursor (AI IDE), Warp      | Alternative to VSCode/Terminal        |
+| Monitoring     | Stats, iStat Menus         | Temperature, memory, system usage     |
+| Automation     | Raycast, Alfred            | Workflows and automation              |
+| Audio          | VB-Audio, OBS, Krisp       | Filters and audio control             |
+| Macros/Shortcuts | Elgato Stream Deck + app | Launchers, automations                |
 
 ---
 
-## ✅ Checklist final para entorno listo
+## ✅ Final checklist for a ready environment
 
-* [x] Crear estructura de carpetas
-* [x] Configurar sincronización con Synology
-* [x] Instalar software con Homebrew
-* [x] Añadir claves SSH
-* [x] Configurar dotfiles y alias
-* [x] Activar Time Machine y backups en NAS
+* [x] Create folder structure
+* [x] Configure Synology synchronization
+* [x] Install software with Homebrew
+* [x] Add SSH keys
+* [x] Configure dotfiles and aliases
+* [x] Enable Time Machine and NAS backups
 
 ---
 
-> *Este README forma parte del entorno profesional de desarrollo mantenido por \[tu nombre o empresa].*
-> *Última actualización: 2025-08-07*
+> *This README is part of the professional development environment maintained by [your name or company].*
+> *Last updated: 2025-08-08*
