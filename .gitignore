@@ -2,3 +2,12 @@
 install-dev-tools.log
 
 
+# =========================================
+# IntelliJ IDEA
+# =========================================
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.idea_modules/
