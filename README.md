@@ -10,7 +10,7 @@ Transforma tu Mac nuevo en un entorno de desarrollo completo para **Java/Kotlin 
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  ⏱️  Tiempo: 30-45 min  │  💾 Espacio: ~15 GB          │
+│  ⏱️  Tiempo: 30-45 min  │  💾 Espacio: ~12 GB          │
 │  🖥️  Requiere: macOS 12+ (Monterey or newer)            │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -24,7 +24,7 @@ Transforma tu Mac nuevo en un entorno de desarrollo completo para **Java/Kotlin 
 - [Características](#-características)
 - [Herramientas Incluidas](#-herramientas-incluidas)
   - [Aplicaciones GUI](#️-aplicaciones-gui-16)
-  - [Herramientas CLI](#️-herramientas-cli-43)
+  - [Herramientas CLI](#️-herramientas-cli-40)
   - [SDKs JVM](#-sdks-jvm-8)
 - [Guía de Herramientas](#-guía-de-herramientas-esenciales)
 - [Instalación Manual](#-instalación-manual-de-herramientas)
@@ -52,7 +52,8 @@ Transforma tu Mac nuevo en un entorno de desarrollo completo para **Java/Kotlin 
 
 **El script usa Homebrew para instalar:**
 - 16 aplicaciones GUI (Docker, IntelliJ, VS Code, etc.)
-- 43 herramientas CLI (kubectl, terraform, jq, etc.)
+- 40 herramientas CLI (kubectl, terraform, jq, etc.)
+- **Nota:** Java se instala vía SDKMAN!, no Homebrew (mejor gestión de versiones)
 
 ### ¿Quiero instalar Homebrew manualmente antes? (opcional)
 
@@ -88,9 +89,9 @@ chmod +x install-dev-tools.sh
 
 ### ¿Qué pasará?
 
-1. **Advertencia de permisos**: Se te informa que necesitarás `sudo` (presiona Enter)
+1. **Advertencia de permisos**: Se te informa que podría necesitar `sudo` (presiona Enter)
 2. **Selector de GUI apps**: Elige 16 aplicaciones (Docker, IntelliJ, etc.)
-3. **Selector de CLI tools**: Elige 43 herramientas (kubectl, terraform, jq, etc.)
+3. **Selector de CLI tools**: Elige 40 herramientas (kubectl, terraform, jq, etc.)
 4. **Selector de JVM SDKs**: Elige 8 SDKs (Java, Maven, Gradle, Kotlin, etc.)
 5. **Instalación automática**: Todo se instala sin intervención
 6. **Reporte final**: Ver estadísticas de instalación
@@ -160,7 +161,7 @@ Usa `Espacio` para desmarcar, `Enter` para confirmar cada selector.
 
 ---
 
-### ⚙️ Herramientas CLI (43)
+### ⚙️ Herramientas CLI (40)
 
 #### **🐳 Kubernetes & Containers** (7 herramientas)
 
@@ -242,22 +243,33 @@ terraform apply                   # Crea recursos reales en AWS
 
 ---
 
-#### **☕ Java/JDK** (3 versiones)
+#### **☕ Java/JDK** (Instalado vía SDKMAN!)
 
-| Versión | Descripción | Instalación manual |
-|---------|-------------|-------------------|
-| **openjdk@25** | Java 25 (latest) | `brew install openjdk@25` |
-| **openjdk@21** | Java 21 LTS | `brew install openjdk@21` |
-| **openjdk@17** | Java 17 LTS | `brew install openjdk@17` |
+> **⚠️ Importante:** Java **NO** se instala vía Homebrew CLI tools. Todas las versiones de Java se gestionan exclusivamente con **SDKMAN!** (ver sección [SDKs JVM](#-sdks-jvm-8) más abajo).
 
-**Ejemplo de uso:**
+**Razón:** SDKMAN! permite cambiar fácilmente entre versiones de Java con `sdk use java 21-tem`, algo que no es posible con las instalaciones de Homebrew.
+
+**Versiones instaladas automáticamente:**
+- Java 25 (Temurin) - Latest
+- Java 21 LTS (Temurin) - Enterprise standard
+- Java 17 LTS (Temurin) - Legacy support
+
+**Comandos básicos:**
 ```bash
-# Ver versión instalada
+# Ver versión activa
 java --version
 
-# Cambiar versión (vía SDKMAN!)
+# Cambiar a Java 21 temporalmente
 sdk use java 21-tem
+
+# Cambiar a Java 21 permanentemente
+sdk default java 21-tem
+
+# Ver todas las versiones instaladas
+sdk list java
 ```
+
+Ver [sección SDKMAN!](#-sdks-jvm-8) para gestión completa de versiones.
 
 ---
 
@@ -640,17 +652,70 @@ cd ~/Work/my-spring-boot-project
 # Using java version 21-tem (set by /Users/you/Work/my-spring-boot-project/.sdkmanrc)
 ```
 
+#### 🛠️ Cambiar versiones de Gradle y Maven
+
+Al igual que con Java, puedes tener múltiples versiones de Gradle y Maven:
+
+```bash
+# 📋 Ver TODAS las versiones disponibles de Gradle para instalar
+sdk list gradle
+# ================================================================================
+# Available Gradle Versions
+# ================================================================================
+#     8.6
+#     8.5
+#     8.4
+#   > 8.3        (installed)
+#     7.6.3
+#     7.5.1
+
+# 📦 Instalar una versión específica de Gradle
+sdk install gradle 8.5
+
+# 🔄 Cambiar a Gradle 8.5 (temporal, solo esta terminal)
+sdk use gradle 8.5
+
+# ⭐ Establecer Gradle 8.5 como default para todas las terminales
+sdk default gradle 8.5
+
+# 🔍 Ver qué versión de Gradle está activa
+sdk current gradle
+# Using gradle version 8.5
+
+gradle --version
+# Gradle 8.5
+```
+
+**Lo mismo aplica para Maven:**
+
+```bash
+# Ver versiones disponibles de Maven
+sdk list maven
+
+# Instalar Maven 3.9.6
+sdk install maven 3.9.6
+
+# Cambiar a Maven 3.9.6
+sdk use maven 3.9.6
+
+# Verificar versión
+mvn --version
+# Apache Maven 3.9.6
+```
+
 #### 🛠️ Otros ejemplos útiles
 
 ```bash
-# Actualizar Gradle a la última versión
+# Actualizar herramienta a la última versión disponible
 sdk upgrade gradle
+sdk upgrade maven
 
-# Instalar una versión específica de Java
+# Instalar una versión específica de Java que no esté en el script
 sdk install java 11.0.21-tem
 
-# Crear proyecto Spring Boot con Java 21
+# Crear proyecto Spring Boot con Java 21 y Gradle 8.5
 sdk use java 21-tem
+sdk use gradle 8.5
 spring init --dependencies=web,data-jpa,postgresql my-project
 
 # Ejecutar script Java sin proyecto completo
@@ -844,12 +909,12 @@ Al terminar verás:
 
 ### ¿Cuánto espacio ocupa?
 
-Aproximadamente **15 GB** en total:
+Aproximadamente **12 GB** en total:
 - Docker Desktop: ~5 GB
 - IntelliJ IDEA: ~2 GB
-- Java SDKs (3 versiones): ~1.5 GB
-- Homebrew + CLI tools: ~2 GB
-- Resto de apps GUI: ~4.5 GB
+- Java SDKs vía SDKMAN (3 versiones): ~1.5 GB
+- Homebrew + CLI tools: ~1.5 GB
+- Resto de apps GUI: ~2 GB
 
 ### ¿Puedo ejecutarlo varias veces?
 

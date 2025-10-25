@@ -81,9 +81,8 @@ install_brew() {
 
 # Warn about sudo requirement upfront
 echo ""
-echo "⚠️  IMPORTANT: This script will require sudo password for:"
-echo "   - Setting system default JDK"
-echo "   - Potentially during Homebrew installation"
+echo "⚠️  IMPORTANT: This script may require sudo password for:"
+echo "   - Homebrew installation (if not already installed)"
 echo ""
 if [ "$DRY_RUN" = false ]; then
   read -p "Press Enter to continue or Ctrl+C to cancel..."
@@ -183,9 +182,6 @@ all_cli_tools=(
   "kubectl"
   "stern"
   "awscli"
-  "openjdk@25"
-  "openjdk@21"
-  "openjdk@17"
   "node"
   "python"
   "fnm"
@@ -231,7 +227,7 @@ else
   selected_cli_tools=$(gum choose --no-limit \
     --header "Select CLI tools to install (Space to toggle, Enter to confirm)" \
     --height 20 \
-    --selected="git,gh,kubectl,stern,awscli,openjdk@25,openjdk@21,openjdk@17,node,python,fnm,pyenv,wget,unzip,jq,yq,httpie,ripgrep,bat,eza,fd,fzf,tree,tmux,direnv,helm,k9s,minikube,kubectx,kubens,terraform,aws-vault,ktlint,detekt,protobuf,grpcurl,k6,mkcert,sops,dive,pgcli,htop,watch" \
+    --selected="git,gh,kubectl,stern,awscli,node,python,fnm,pyenv,wget,unzip,jq,yq,httpie,ripgrep,bat,eza,fd,fzf,tree,tmux,direnv,helm,k9s,minikube,kubectx,kubens,terraform,aws-vault,ktlint,detekt,protobuf,grpcurl,k6,mkcert,sops,dive,pgcli,htop,watch" \
     "${all_cli_tools[@]}")
 fi
 
@@ -422,18 +418,6 @@ if [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
   fi
 else
   log_error "sdkman-init.sh not found"
-fi
-
-# Configure system default JDK
-log_info "=== Configuring system default JDK ==="
-if [ "$DRY_RUN" = true ]; then
-  log_info "[DRY RUN] Would configure JDK 25 as system default"
-else
-  if sudo ln -sfn /opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk 2>/dev/null; then
-    log_success "JDK 25 configured as system default"
-  else
-    log_error "Failed to set system default JDK"
-  fi
 fi
 
 # Oh My Zsh: framework to enhance zsh
