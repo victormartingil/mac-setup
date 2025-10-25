@@ -260,7 +260,7 @@ else
   fi
 fi
 
-# Configure useful aliases (fixes and additions)
+# Configure useful aliases (examples - customize to your needs)
 log_info "=== Configuring aliases in .zshrc ==="
 if [ "$DRY_RUN" = true ]; then
   log_info "[DRY RUN] Would configure aliases in .zshrc"
@@ -269,10 +269,12 @@ else
     {
       echo "";
       echo "# Custom aliases";
-      echo "alias rep='cd ~/Work/_CORBAT/01-Repositories'";
-      echo "alias adv='cd ~/Work/_ADEVINTA/01-Repositories'";
+      echo "# Uncomment and customize these aliases to match your directory structure:";
+      echo "# alias repos='cd ~/Work/repositories'";
+      echo "# alias projects='cd ~/Projects'";
+      echo "# alias dev='cd ~/Development'";
     } >> ~/.zshrc
-    log_success "Aliases added to .zshrc"
+    log_success "Alias examples added to .zshrc (commented out - customize as needed)"
   else
     log_info "Aliases already configured in .zshrc"
   fi

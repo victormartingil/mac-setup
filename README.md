@@ -19,6 +19,7 @@ Transforma tu Mac nuevo en un entorno de desarrollo completo para **Java/Kotlin 
 
 ## 📑 Tabla de Contenidos
 
+- [Prerequisitos](#-prerequisitos)
 - [Inicio Rápido](#-inicio-rápido)
 - [Características](#-características)
 - [Herramientas Incluidas](#-herramientas-incluidas)
@@ -31,6 +32,45 @@ Transforma tu Mac nuevo en un entorno de desarrollo completo para **Java/Kotlin 
 - [Monitoreo](#-monitoreo)
 - [FAQ](#-faq)
 - [Troubleshooting](#-troubleshooting)
+
+---
+
+## 📋 Prerequisitos
+
+### ¿Necesito instalar algo antes de ejecutar el script?
+
+**Respuesta corta:** No. El script lo hace todo automáticamente.
+
+**Respuesta larga:** El script requiere **Homebrew** (el gestor de paquetes de macOS), pero:
+
+✅ **Si ya tienes Homebrew instalado** → El script lo detecta y continúa
+✅ **Si NO tienes Homebrew** → El script lo instala automáticamente por ti
+
+### ¿Qué es Homebrew y por qué es necesario?
+
+[Homebrew](https://brew.sh/) es el gestor de paquetes estándar de facto para macOS, similar a `apt` en Ubuntu o `yum` en RedHat. Permite instalar herramientas de desarrollo con comandos simples como `brew install git`.
+
+**El script usa Homebrew para instalar:**
+- 16 aplicaciones GUI (Docker, IntelliJ, VS Code, etc.)
+- 43 herramientas CLI (kubectl, terraform, jq, etc.)
+
+### ¿Quiero instalar Homebrew manualmente antes? (opcional)
+
+Si prefieres instalar Homebrew manualmente **antes** de ejecutar el script (por ejemplo, para entender el proceso):
+
+```bash
+# Comando oficial de Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Verificar que se instaló correctamente
+brew --version
+# Homebrew 4.x.x
+
+# Ahora puedes ejecutar el script
+./install-dev-tools.sh
+```
+
+**Nota para Apple Silicon (M1/M2/M3):** Homebrew se instala en `/opt/homebrew/` en lugar de `/usr/local/`. El script maneja esto automáticamente añadiendo Homebrew a tu PATH.
 
 ---
 
@@ -738,13 +778,23 @@ El script configura:
 | Configuración | Detalles |
 |---------------|----------|
 | **Carpetas** | `~/00-MyStuff`, `~/Work` |
-| **Aliases** | `rep` → `~/Work/_CORBAT/01-Repositories`<br>`adv` → `~/Work/_ADEVINTA/01-Repositories` |
+| **Aliases** | Ejemplos comentados en `.zshrc` - descomenta y personaliza según tu estructura de carpetas |
 | **Java default** | Java 25-tem como default del sistema |
 | **Oh My Zsh** | Framework Zsh con temas y plugins |
 | **fnm** | Node version manager configurado |
 | **pyenv** | Python version manager configurado |
 
-Para personalizar aliases, edita líneas 272-273 antes de ejecutar.
+**Personalizar aliases:** Después de ejecutar el script, edita `~/.zshrc` y descomenta/modifica los aliases de ejemplo:
+```bash
+# Busca esta sección en ~/.zshrc:
+# Custom aliases
+# alias repos='cd ~/Work/repositories'
+# alias projects='cd ~/Projects'
+# alias dev='cd ~/Development'
+
+# Descomenta y personaliza según tu estructura:
+alias repos='cd ~/Work/repositories'
+```
 
 ---
 
